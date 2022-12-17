@@ -1,15 +1,8 @@
-input.onSound(DetectedSound.Loud, function () {
-	
-})
 let thingDistance = 0
 let drivingSpeed = 25
-let imMoving = false
-input.setSoundThreshold(SoundThreshold.Loud, 200)
-basic.showIcon(IconNames.Asleep)
-basic.pause(1000)
 basic.showIcon(IconNames.Happy)
+let imMoving = true
 maqueen.motorRun(maqueen.Motors.All, maqueen.Dir.CW, drivingSpeed)
-imMoving = true
 /**
  * if im moving and
  * 
@@ -24,8 +17,11 @@ basic.forever(function () {
         thingDistance = maqueen.Ultrasonic(PingUnit.Centimeters)
         if (thingDistance < 12) {
             maqueen.motorStop(maqueen.Motors.M2)
-            basic.pause(2000)
+            basic.pause(1600)
             maqueen.motorRun(maqueen.Motors.M2, maqueen.Dir.CW, drivingSpeed)
         }
+    }
+    if (input.soundLevel() > 250) {
+        music.playMelody("F G A B C5 A G - ", 1500)
     }
 })
